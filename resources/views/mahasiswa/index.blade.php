@@ -9,38 +9,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
-    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
+
+
+
     <!-- Custom Styles -->
     <style>
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            padding: 0.5em 1em;
-            border-radius: 0.375rem;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            padding: 0.5em;
-            border-radius: 0.375rem;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background-color: #0d6efd;
-            color: white;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            background-color: #0b5ed7;
-            color: white;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            border: 1px solid #0d6efd;
-            border-radius: 0.375rem;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            border: 1px solid #0d6efd;
-        }
-
         /* Ensure QR code div is visible on mobile */
         .qrcode-container {
             display: flex;
@@ -170,7 +144,7 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
     <!-- DOM-to-Image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <!-- FileSaver.js -->
