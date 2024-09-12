@@ -14,4 +14,4 @@ use App\Http\Controllers\MahasiswaController;
 |
 */
 
-Route::get('/', [MahasiswaController::class, 'index']);
+Route::get('/', [MahasiswaController::class, 'index'])->name('mahasiswa.index');

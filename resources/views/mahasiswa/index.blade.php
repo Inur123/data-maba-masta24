@@ -8,10 +8,6 @@
     <link rel="icon" href="{{ asset('images/logo-masta24.png') }}" type="image/x-icon">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
-
-
 
     <!-- Custom Styles -->
     <style>
@@ -36,7 +32,6 @@
             background-color: #fff;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow-x: auto;
-            /* Ensure the table is scrollable if too wide */
         }
 
         /* Header styling */
@@ -96,6 +91,18 @@
     <div class="container mt-2">
         <div class="table-wrapper">
             <h2 class="text-center mb-4">Daftar Mahasiswa</h2>
+
+            <!-- Form pencarian -->
+            <form action="{{ route('mahasiswa.index') }}" method="GET" class="mb-3">
+                <div class="d-flex justify-content-end">
+                    <div class="input-group" style="max-width: 400px;">
+                        <input type="text" name="search" class="form-control" placeholder="Cari mahasiswa..."
+                            value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </div>
+            </form>
+
             <div class="table-responsive">
                 <table id="mahasiswaTable" class="table table-striped table-bordered">
                     <thead class="bg-primary text-white">
@@ -111,7 +118,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($mahasiswa as $mhs)
+                        @forelse ($mahasiswa as $mhs)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="qrcode-container">
@@ -132,43 +139,36 @@
                                     </button>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center">Data mahasiswa tidak ditemukan.</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
+            <!-- Tampilkan pagination -->
+            {{ $mahasiswa->appends(request()->input())->links() }}
         </div>
     </div>
+
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
     <!-- DOM-to-Image -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <!-- FileSaver.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <!-- JSZip -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#mahasiswaTable').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                info: true
-            });
-        });
-
         function downloadQRCode(nim, nama, kelompok) {
             const node = document.getElementById(`qrcode-${nim}`);
 
             domtoimage.toBlob(node)
                 .then(function(blob) {
-                    const formattedName = nama.replace(/\s+/g, '_')
-                        .toLowerCase(); // Ganti spasi dengan underscore dan ubah huruf menjadi kecil
+                    const formattedName = nama.replace(/\s+/g, '_').toLowerCase();
                     window.saveAs(blob, `${formattedName}-${nim}-kelompok${kelompok}.png`);
                 })
                 .catch(function(error) {
